@@ -1,6 +1,7 @@
 """
-NX12 MKE 规则数据定义
+NX-FBM NX12 MKE 规则数据定义
 版本: v12.0
+项目名称: NX-FBM
 说明: 仅包含规则数据，不包含 XML 序列化逻辑
       使用 fbm_generator_core.py 中的 FBMGenerator 生成 XML
 """

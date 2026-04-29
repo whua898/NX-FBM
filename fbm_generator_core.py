@@ -1,6 +1,7 @@
 """
 FBM Generator Core - 通用规则生成框架
 版本: v1.0
+项目名称: NX-FBM
 适用范围: NX12/NX2512+ (通过 Schema Adapter 隔离版本差异)
 
 架构原则:

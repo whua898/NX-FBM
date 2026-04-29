@@ -1,6 +1,7 @@
 """
-NX12 MKE 规则生成器主入口
+NX-FBM NX12 MKE 规则生成器主入口
 版本: v12.0
+项目名称: NX-FBM
 用法: python generate_mke_nx12.py
 """
 
@@ -12,7 +13,7 @@ from rules_data_nx12 import create_nx12_rules
 def main():
     """主函数"""
     print("=" * 60)
-    print("NX12 MKE 规则生成器 v12.0")
+    print("NX-FBM NX12 MKE 规则生成器 v12.0")
     print("=" * 60)
     
     # 1. 加载规则数据

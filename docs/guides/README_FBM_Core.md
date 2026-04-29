@@ -9,7 +9,7 @@
 ## 项目结构
 
 ```
-NX12MKE/
+NX-FBM/
 ├── fbm_generator_core.py      # 核心框架（数据与序列化分离）
 ├── rules_data_nx12.py         # NX12 规则数据定义
 ├── generate_mke_nx12.py       # NX12 生成器入口
@@ -239,7 +239,7 @@ print(repr(conditions_text))
 ## 参考资料
 
 - [FBM 开发通用规范](docs/guides/FBM_Development_Guide.md)
-- [NX12MKE 详细手册](NX12MKE.md)
+- [NX-FBM 详细手册](../../NX12MKE.md)
 - [AGENTS.md](AGENTS.md) - AI 行为准则
 
 ---
