@@ -4,20 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a99750b1-f735-448b-ac3a-3cf66927e0f4" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/NX12MKE.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AGENTS.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NX12MKE.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NX12_基于特征加工.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/holder_database.dat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/machining_knowledge.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tool_database.dat" afterDir="false" />
-    </list>
+    <list default="true" id="a99750b1-f735-448b-ac3a-3cf66927e0f4" name="更改" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
