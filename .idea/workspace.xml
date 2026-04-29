@@ -5,18 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a99750b1-f735-448b-ac3a-3cf66927e0f4" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/NX12MKE.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AGENTS.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NX12MKE.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NX12_基于特征加工.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/holder_database.dat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/machining_knowledge.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tool_database.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,7 +13,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="542" />
+    <option name="cachedIndexableFilesCount" value="534" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -92,6 +81,8 @@
       <workItem from="1777322281227" duration="2497000" />
       <workItem from="1777324800518" duration="15604000" />
       <workItem from="1777352239990" duration="47858000" />
+      <workItem from="1777460466992" duration="1687000" />
+      <workItem from="1777462582257" duration="1479000" />
     </task>
     <servers />
   </component>
