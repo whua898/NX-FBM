@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+env/
+venv/
+*.egg-info/
+dist/
+build/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# NX MKE 输出文件（版本特定，不提交到 master）
+*_output/
+mke_html_output/
+nx12_fbm_html_output/
+*.html
+
+# 生成的规则库 XML（版本特定，在各自分支管理）
+machining_knowledge_v*.xml
+NX12_基于特征加工.html
+
+# 临时调试文件
+test_*.py
+debug_*.py
+*_test.xml
+*_backup.xml
+
+# OS
+.DS_Store
+Thumbs.db
