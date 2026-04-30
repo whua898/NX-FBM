@@ -1,7 +1,6 @@
 """
 FBM Generator Core - 通用规则生成框架
 版本: v1.0
-项目名称: NX-FBM
 适用范围: NX12/NX2512+ (通过 Schema Adapter 隔离版本差异)
 
 架构原则:
@@ -30,6 +29,7 @@ class MachiningRule:
     tool_class: str
     criteria: List[Tuple[str, str, str]] = field(default_factory=list)  # (field, operator, value)
     tool_attrs: List[Tuple[str, str, str]] = field(default_factory=list)
+    oper_attrs: List[Tuple[str, str, str]] = field(default_factory=list)  # 工序属性赋值
     description: str = ""
 
 
@@ -77,13 +77,26 @@ class NX12SchemaAdapter(SchemaAdapter):
         ET.SubElement(node_info, 'Id').text = str(id_counter)
         id_counter += 1
         
+        # 添加工必需的 ContentType 标签
+        ET.SubElement(lib_elem, 'ContentType').text = 'InferenceRule'
+        
         ET.SubElement(lib_elem, 'name').text = lib.name
         if lib.description:
             ET.SubElement(lib_elem, 'comment').text = lib.description
         
+        # 添加空的 Machines 和 ProductMaterials 标签（NX 强校验要求）
+        ET.SubElement(lib_elem, 'Machines')
+        ET.SubElement(lib_elem, 'ProductMaterials')
+        
+        # 添加 History 标签（原厂所有库都有）
+        ET.SubElement(lib_elem, 'History')
+        
         collections = ET.SubElement(lib_elem, 'collections')
         if parent.tag == 'RuleRootLibrary':
             ET.SubElement(collections, 'item').text = parent.get('ExternalId')
+        else:
+            # 对于子库，引用父库的 ExternalId
+            ET.SubElement(collections, 'item').text = parent.get('ExternalId', '')
         
         children = ET.SubElement(lib_elem, 'children')
         
@@ -127,6 +140,10 @@ class NX12SchemaAdapter(SchemaAdapter):
         collections = ET.SubElement(rule_elem, 'collections')
         ET.SubElement(collections, 'item').text = parent_lib_id
         
+        # 添加空的 Machines 和 ProductMaterials 标签（NX 强校验要求）
+        ET.SubElement(rule_elem, 'Machines')
+        ET.SubElement(rule_elem, 'ProductMaterials')
+        
         # 构建 Conditions 文本块（四区块格式）
         conditions_text = self._build_conditions_text(rule)
         conditions = ET.SubElement(rule_elem, 'Conditions')
@@ -150,31 +167,58 @@ class NX12SchemaAdapter(SchemaAdapter):
         ET.SubElement(rule_elem, 'comment').text = rule.description
         ET.SubElement(rule_elem, 'type').text = "Composed"
         
+        # 添加空的 History 和 DecorationObjects 标签
+        ET.SubElement(rule_elem, 'History')
+        ET.SubElement(rule_elem, 'DecorationObjects')
+        
         return rule_elem, id_counter
     
     def _build_conditions_text(self, rule: MachiningRule) -> str:
         """构建 Conditions 文本块（严格遵循官方四区块结构）"""
-        text = "REM Application Criteria\n"
-        
+        # Application Criteria
+        app_criteria = ["REM Application Criteria", ""]
         if rule.criteria:
-            text += "\n"
             for field_name, op, value in rule.criteria:
-                text += f"{field_name} {op} {value}\n"
-        else:
-            text += "\n"
+                app_criteria.append(f"{field_name} {op} {value}")
+        app_criteria.append("")
+        app_criteria.append("$$ Rule rejected because condition FALSE")
+        app_criteria.append("")
         
-        text += "\n$$ Rule rejected because condition FALSE\n"
-        text += "\nREM Tool Attributes\n"
-        
+        # Tool Attributes
+        tool_attrs = ["REM Tool Attributes", ""]
         if rule.tool_attrs:
-            text += "\n"
             for field_name, op, value in rule.tool_attrs:
-                text += f"{field_name} {op} {value}\n"
-        else:
-            text += "\n"
+                # Libref 值需要加引号
+                if field_name == 'tool.Libref' and not value.startswith('"'):
+                    value = f'"{value}"'
+                tool_attrs.append(f"{field_name} {op} {value}")
+        tool_attrs.append("")
         
-        text += "\nREM Less Worked Feature Attributes\n\n"
-        text += f'REM Operation Attributes\n\noper.name = "{rule.name}"\n'
+        # Less Worked Feature Attributes
+        lwf_attrs = ["REM Less Worked Feature Attributes", "", "REM", ""]
+        
+        # Operation Attributes
+        oper_attrs = ["REM Operation Attributes", ""]
+        oper_attrs.append(f'oper.name = "{rule.name}"')
+        
+        # 自动添加工序特定属性
+        if rule.operation_class == 'mill_contour.CAVITY_MILL':
+            oper_attrs.append('oper.Smart_Tool_Axis_Vector[1] = -mwf.X_ORIENTATION_D')
+            oper_attrs.append('oper.Smart_Tool_Axis_Vector[2] = -mwf.Y_ORIENTATION_D')
+            oper_attrs.append('oper.Smart_Tool_Axis_Vector[3] = -mwf.Z_ORIENTATION_D')
+        
+        if rule.operation_class.startswith('hole_making.'):
+            oper_attrs.append('oper.Geometry_Roles = mwf.FACES_CYLINDER_1')
+        
+        # 添加用户自定义的 oper_attrs
+        if rule.oper_attrs:
+            for field_name, op, value in rule.oper_attrs:
+                oper_attrs.append(f"{field_name} {op} {value}")
+        
+        oper_attrs.append("")
+        
+        # 合并所有区块
+        text = "\n".join(app_criteria + tool_attrs + lwf_attrs + oper_attrs)
         
         return text
 
@@ -234,8 +278,23 @@ class FBMGenerator:
         
         # 保存文件
         print(f"💾 保存文件: {output_file}")
+        
+        # 注意：ET.indent() 会移除 XML 声明，所以先 indent 再手动添加声明
         ET.indent(tree, space="  ")  # Python 3.9+ 支持
-        tree.write(output_file, encoding='UTF-8', xml_declaration=True)
+        
+        # 转换为字符串
+        xml_str = ET.tostring(tree.getroot(), encoding='unicode')
+        
+        # 清理多余的命名空间声明
+        xml_str = xml_str.replace('xmlns:ns0="urn:schemas-microsoft-com:datatypes"', '')
+        xml_str = xml_str.replace('ns0:', '')
+        
+        # 添加 XML 声明（双引号格式，与原厂一致）
+        xml_str = '<?xml version="1.0" encoding="UTF-8"?>\n' + xml_str
+        
+        with open(output_file, 'w', encoding='UTF-8') as f:
+            f.write(xml_str)
+        
         print("✅ 生成完成！")
     
     def _clean_corrupted_nodes(self, objects: ET.Element, rule_root: ET.Element) -> None:
@@ -279,8 +338,18 @@ class FBMGenerator:
         return max_id + 1
     
     def _create_factory_library(self, objects: ET.Element, name: str, comment: str,
-                               rule_root: ET.Element, lib_id: int) -> ET.Element:
-        """创建工厂规则库根节点"""
+                               rule_root: ET.Element, lib_id: int, 
+                               target_lib_ext_id: str = "1748121186") -> ET.Element:
+        """创建工厂规则库根节点并挂载到指定目标库内部
+        
+        Args:
+            objects: XML Objects 节点
+            name: 规则库名称
+            comment: 规则库描述
+            rule_root: 规则根节点
+            lib_id: 节点 ID
+            target_lib_ext_id: 目标库 ExternalId（默认 MillDrill）
+        """
         factory_ext_id = f"{name}_Lib"
         
         factory_lib = ET.SubElement(objects, 'MachiningRuleLibrary')
@@ -289,17 +358,44 @@ class FBMGenerator:
         node_info = ET.SubElement(factory_lib, 'NodeInfo')
         ET.SubElement(node_info, 'Id').text = str(lib_id)
         
+        # 添加 ContentType（必需）
+        ET.SubElement(factory_lib, 'ContentType').text = 'InferenceRule'
+        
         ET.SubElement(factory_lib, 'name').text = name
         ET.SubElement(factory_lib, 'comment').text = comment
         
-        collections = ET.SubElement(factory_lib, 'collections')
-        ET.SubElement(collections, 'item').text = self.adapter.get_root_external_id()
+        # 添加空的 Machines 和 ProductMaterials
+        ET.SubElement(factory_lib, 'Machines')
+        ET.SubElement(factory_lib, 'ProductMaterials')
         
-        # 添加到规则根的 children
-        children_elem = rule_root.find('children')
-        if children_elem is None:
-            children_elem = ET.SubElement(rule_root, 'children')
-        ET.SubElement(children_elem, 'item').text = factory_ext_id
+        collections = ET.SubElement(factory_lib, 'collections')
+        ET.SubElement(collections, 'item').text = target_lib_ext_id
+        
+        # 查找目标库（MillDrill）
+        target_lib = None
+        for elem in objects:
+            if elem.get('ExternalId') == target_lib_ext_id:
+                target_lib = elem
+                break
+        
+        if target_lib is None:
+            print(f"⚠️ 警告：未找到目标库 {target_lib_ext_id}，回退到挂载到规则根")
+            # 回退：添加到规则根的 children
+            children_elem = rule_root.find('children')
+            if children_elem is None:
+                children_elem = ET.SubElement(rule_root, 'children')
+            ET.SubElement(children_elem, 'item').text = factory_ext_id
+        else:
+            # 插入到目标库的 children 前列
+            children_elem = target_lib.find('children')
+            if children_elem is None:
+                children_elem = ET.SubElement(target_lib, 'children')
+            
+            # 创建新的 item 并插入到第一个位置
+            new_item = ET.Element('item')
+            new_item.text = factory_ext_id
+            children_elem.insert(0, new_item)
+            print(f"✅ 已挂载到目标库 {target_lib_ext_id} 的 children 前列")
         
         return factory_lib
     
