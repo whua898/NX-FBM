@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/NX12MKE.iml" filepath="$PROJECT_DIR$/.idea/NX12MKE.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/nx-fbm.iml" filepath="$PROJECT_DIR$/.idea/nx-fbm.iml" />
     </modules>
   </component>
 </project>
