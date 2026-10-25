@@ -492,6 +492,26 @@ def dict_to_data_row(row_dict, col_names, col_widths):
             parts.append("")
     return "|".join(parts) + "|\n"
 
+def detect_encoding(filepath):
+    # 探测库文件编码：优先 UTF-8（含 BOM 检测），其次 GBK（NX 系统 ANSI）。
+    # NX12 读取 .dat 库文件时使用系统 ANSI(GBK) 编码，UTF-8 存储的中文会显示乱码，
+    # 因此写入端统一转回 GBK（见 main / align_dat_file 的写入处）。
+    with open(filepath, 'rb') as f:
+        raw = f.read()
+    if raw.startswith(b'\xef\xbb\xbf'):
+        return 'utf-8-sig'
+    try:
+        raw.decode('utf-8')
+        return 'utf-8'
+    except UnicodeDecodeError:
+        pass
+    try:
+        raw.decode('gbk')
+        return 'gbk'
+    except UnicodeDecodeError:
+        pass
+    return None
+
 def extract_header(lines):
     # 从原始库文件行中提取文件头部注释区（Header）。
     # 头部定义：从文件第一行起，到第一个数据区块边界之前的所有行——
@@ -526,15 +546,24 @@ def main():
         print(f"❌ 找不到刀库文件: {input_file}，请确保脚本在包含该文件的目录下运行。")
         return
 
+    # 探测输入文件编码（UTF-8 / UTF-8 BOM / GBK 均可读），
+    # 无论输入是哪种编码，写回时统一转为 GBK —— NX12 读取库文件用系统 ANSI(GBK)，
+    # UTF-8 存储的中文 DESCR 在 NX 界面会显示乱码（如"整体立铣刀"变成乱码字符）。
+    input_encoding = detect_encoding(input_file)
+    if input_encoding is None:
+        print(f"❌ {input_file} 既不是有效的 UTF-8 也不是 GBK 编码，无法解析。")
+        return
+    if input_encoding != 'gbk':
+        print(f"ℹ️ 检测到输入文件为 {input_encoding} 编码，写入时将转换为 GBK（NX 兼容编码）。")
+
     try:
-        # 统一以 UTF-8 编码读取，保证含中文头部的库文件正确解析
-        with open(input_file, 'r', encoding='utf-8') as f:
+        with open(input_file, 'r', encoding=input_encoding) as f:
             lines = f.readlines()
     except PermissionError:
         print(f"❌ 无权限读取 {input_file}：文件被其他程序占用或为只读，请关闭 NX/编辑器等占用程序后重试。")
         return
     except UnicodeDecodeError as e:
-        print(f"❌ {input_file} 不是有效的 UTF-8 文本文件: {e}")
+        print(f"❌ {input_file} 无法按 {input_encoding} 解码: {e}")
         return
     except OSError as e:
         print(f"❌ 无法读取 {input_file}: {e}")
@@ -717,7 +746,9 @@ def main():
     out_lines = header_lines + custom_zone_lines + native_lines
 
     try:
-        with open(output_file, 'w', encoding='utf-8') as f:
+        # 统一以 GBK(NX 系统 ANSI) 编码写入：NX12 读取 .dat 库文件不使用 UTF-8，
+        # 中文 DESCR 只有以 GBK 存储才能在 NX 界面正常显示
+        with open(output_file, 'w', encoding='gbk', newline='') as f:
             f.writelines(out_lines)
         print(f"✅ 生成 {output_file} 成功！")
         print(f"✅ 提取或注入了 {len(CUSTOM_TOOLS)} 把自定义刀具，集中建档于顶部：# >>>>>> 自定义刀具（置顶置前显示区）<<<<<<")
@@ -740,8 +771,11 @@ def align_dat_file(filepath):
     # 复用模块级显示宽度工具（get_disp_width / ljust_with_disp），
     # 避免在函数内部重复实现同样的东亚宽度计算逻辑
     try:
-        with open(filepath, 'r', encoding='utf-8') as f:
-            lines = f.readlines()
+        # 对齐阶段读写编码与主流程一致：GBK（NX 兼容），兼容读到 UTF-8 存量的场景
+        with open(filepath, 'rb') as f:
+            _raw = f.read()
+        _enc = detect_encoding(filepath) or 'gbk'
+        lines = _raw.decode(_enc).splitlines(keepends=True)
     except PermissionError:
         raise OSError(f"无权限读取 {filepath}：文件可能被其他程序占用") from None
     except OSError as e:
@@ -805,7 +839,8 @@ def align_dat_file(filepath):
             out_lines.append(line)
             i += 1
 
-    with open(filepath, 'w', encoding='utf-8') as f:
+    # 对齐结果写回时同样使用 GBK（NX 兼容编码），换行保持 \n（NX 库文件惯例）
+    with open(filepath, 'w', encoding='gbk', newline='') as f:
         f.writelines(out_lines)
 
 if __name__ == "__main__":

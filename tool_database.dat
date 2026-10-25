@@ -1,121 +1,121 @@
 
 #=======================================================================
 #
-#   ASCII 数据库文件    : tool_database.dat
-#   创建日期            : 02/10/03 14:42:04
-#   单位                : 公制（Metric）
+#   ASCII ���ݿ��ļ�    : tool_database.dat
+#   ��������            : 02/10/03 14:42:04
+#   ��λ                : ���ƣ�Metric��
 #=======================================================================
 #
 #
-# UG/Library 刀具数据文件
+# UG/Library ���������ļ�
 #
 #
-# ASCII 数据文件格式
+# ASCII �����ļ���ʽ
 # ------------------------------
 #
-# 该 ASCII 数据文件由一系列记录（record）组成。记录的一般结构为：
+# �� ASCII �����ļ���һϵ�м�¼��record����ɡ���¼��һ��ṹΪ��
 #
-#    记录类型 参数
+#    ��¼���� ����
 #
-# 记录类型共有四种，由以下关键字表示：
+# ��¼���͹������֣������¹ؼ��ֱ�ʾ��
 #
 #    # FORMAT DATA CLASS
 #
-# 以 # 开头表示注释，该记录会被忽略。
+# �� # ��ͷ��ʾע�ͣ��ü�¼�ᱻ���ԡ�
 #
-# FORMAT 记录用于描述其后 DATA 记录所包含的参数（字段）种类与顺序。
+# FORMAT ��¼����������� DATA ��¼�������Ĳ������ֶΣ�������˳��
 #
 # FORMAT LIBRF      T  ST   DESCR        MATREF     MATDES     HLD     HLDDES         DIA     FLEN  FN  HEI
 #
-# 这意味着，一个对应的 DATA 记录可能如下所示：
+# ����ζ�ţ�һ����Ӧ�� DATA ��¼����������ʾ��
 #
 # DATA  ugt0201_001  02  01  End Mill  TMC0_00006 HSS Coated   320   Steep Taper 20   10.5   35.3  4  55
 #
-# CLASS 记录是一条注释记录，包含关键字 CLASS，后跟 dbc_tool_ascii.def 中定义的某个类名。
-#   该记录必须紧挨着并位于该类的 FORMAT 记录之前。
-#   若未按要求放置，在尝试将刀具导出到刀具库时可能会出现问题。
+# CLASS ��¼��һ��ע�ͼ�¼�������ؼ��� CLASS����� dbc_tool_ascii.def �ж����ĳ��������
+#   �ü�¼��������Ų�λ�ڸ���� FORMAT ��¼֮ǰ��
+#   ��δ��Ҫ����ã��ڳ��Խ����ߵ��������߿�ʱ���ܻ�������⡣
 #
-# 缩写
-#   LIBRF   - 刀具库引用（Library Reference）
-#   T       - 刀具类型（Tool Type）
-#   ST      - 刀具子类型（Tool SubType）
-#   UGT     - UG（NX）刀具类型（UG Tool Type）
-#   UGST    - UG（NX）刀具子类型（UG Tool SubType）
-#   DESCR   - 描述（Description）
-#   MATREF  - 刀具材料表引用（Reference to cutter material table）
-#   MATDES  - 刀具材料描述（Cutter material description）
-#   HLD     - 装夹系统（机床适配器类型）（Holding system / Type of Machine Adapter）
-#   HLDDES  - 装夹系统描述（Holding system description）
-#   DIA     - 直径（Diameter）
-#   FLEN    - 刃长（Flute Length）
-#   FN      - 刃数（Number of Flutes）
-#   HEI     - 高度/总长（Height）
+# ��д
+#   LIBRF   - ���߿����ã�Library Reference��
+#   T       - �������ͣ�Tool Type��
+#   ST      - ���������ͣ�Tool SubType��
+#   UGT     - UG��NX���������ͣ�UG Tool Type��
+#   UGST    - UG��NX�����������ͣ�UG Tool SubType��
+#   DESCR   - ������Description��
+#   MATREF  - ���߲��ϱ����ã�Reference to cutter material table��
+#   MATDES  - ���߲���������Cutter material description��
+#   HLD     - װ��ϵͳ���������������ͣ���Holding system / Type of Machine Adapter��
+#   HLDDES  - װ��ϵͳ������Holding system description��
+#   DIA     - ֱ����Diameter��
+#   FLEN    - �г���Flute Length��
+#   FN      - ������Number of Flutes��
+#   HEI     - �߶�/�ܳ���Height��
 #
-# 如果一条记录不是以 #、FORMAT 或 DATA 开头，则它会被视为上一条 FORMAT 或 DATA 记录的续行。
-# 例如，一个有效的 FORMAT 描述也可以写成：
+# ���һ����¼������ #��FORMAT �� DATA ��ͷ�������ᱻ��Ϊ��һ�� FORMAT �� DATA ��¼�����С�
+# ���磬һ����Ч�� FORMAT ����Ҳ����д�ɣ�
 #
 # FORMAT LIBREF      T  ST   UGT   UGST   DESCR MATREF MATDES    HLD   DIA   COR TAPA FLEN
-# # 下列 2 个属性标识符也属于该 FORMAT 记录
+# # ���� 2 �����Ա�ʶ��Ҳ���ڸ� FORMAT ��¼
 #        FN  HEI
 #
 #
-# FORMAT 记录由关键字 FORMAT 加上一串属性标识符（attribute identifiers）组成。
+# FORMAT ��¼�ɹؼ��� FORMAT ����һ�����Ա�ʶ����attribute identifiers����ɡ�
 #
-# DATA 记录通常描述一把刀具。该记录由关键字 DATA 加上一串由“ ”分隔的属性值组成。
-# DATA 后第一个非空白字符必须是“ ”。
+# DATA ��¼ͨ������һ�ѵ��ߡ��ü�¼�ɹؼ��� DATA ����һ���ɡ� ���ָ�������ֵ��ɡ�
+# DATA ���һ���ǿհ��ַ������ǡ� ����
 #
-# DATA 记录的属性字段数量与类型由其前面的 FORMAT 记录描述。
-# 这意味着：DATA 记录里的属性值数量必须与对应 FORMAT 记录里的属性标识符数量一致。
+# DATA ��¼�������ֶ���������������ǰ��� FORMAT ��¼������
+# ����ζ�ţ�DATA ��¼�������ֵ�����������Ӧ FORMAT ��¼������Ա�ʶ������һ�¡�
 #
-# 这些属性标识符可在定义文件（dbc_tool_ascii.def）的 DB_ALIAS 结构中作为 DB_ID 值使用。
-# 用户也可以自定义所需的属性标识符来描述其刀具。
-#
-#
-# 以下属性适用于所有刀具类型与子类型（通用字段）：
+# ��Щ���Ա�ʶ�����ڶ����ļ���dbc_tool_ascii.def���� DB_ALIAS �ṹ����Ϊ DB_ID ֵʹ�á�
+# �û�Ҳ�����Զ�����������Ա�ʶ���������䵶�ߡ�
 #
 #
-#  LIBRF   - 刀具唯一标识（所谓 library reference）
-#  T       - 刀具分类类型
-#  ST      - 刀具分类子类型
-#  UGT     - UG（NX）刀具类型
-#  UGST    - UG（NX）刀具子类型
-#  DESCR   - 简短刀具描述
-#  MATREF  - 刀具材料表引用（tool_materials.dat）
-#  MATDES  - 刀具材料描述
-#  HLD     - 用于将刀具装到机床上的装夹系统
-#            HLD 用于检查刀具是否能安装到机床刀库/刀架的刀位（pocket）中。
-#            这里的 HLD 值必须与机床运动学或 Operation Navigator 中 pocket 对象指定的
-#            Holding Systems 之一相匹配。
-#  HLDDES  - 装夹系统描述
-#  HLDREF  - 刀柄库引用（Holder Library Reference）
-#  TPREF   - 跟踪点库引用（Tracking Point Library Reference）
-#  RIGID   - 刚性（Rigidity）
-#
-# 以下属性适用于所有铣削与钻削刀具：
-#
-# TSDIA  - 锥形柄直径（Tapered shank diameter）
-# TSLEN  - 锥形柄长度（Tapered shank length）
-# TSTLEN - 锥形柄锥段长度（Tapered shank taper length）
-# ZMOUNT - Z 安装偏置（Z Mount）
-#
-# 以下属性适用于所有车削刀具：
-# XMOUNT - X 安装偏置（X Mount）
-# YMOUNT - Y 安装偏置（Y Mount）
-# HANGLE - 当“Use Tool Holder”关闭时的刀柄角（Holder angle）
-#
-# 以下属性适用于所有铣削刀具：
-# RAMPANGLE    - 斜坡角（Ramp Angle）
-# HELICALDIA   - 螺旋直径（Helical Diameter）
-# MINRAMPLEN   - 最小斜坡长度（Min Ramp Length）
-# MAXCUTWIDTH  - 最大切削宽度（Max Cut Width）
-#
-# 属性 LIBRF、T、ST 为必填！！
+# �����������������е��������������ͣ�ͨ���ֶΣ���
 #
 #
-# 标准 UG/Library 示例使用属性 T 和 ST（类型/子类型）来对该 ASCII 数据文件中的刀具进行分类。
-# 该库分类可通过 UGT（UG Type）与 UGST（UG SubType）映射到 UG（NX）内部分类。
+#  LIBRF   - ����Ψһ��ʶ����ν library reference��
+#  T       - ���߷�������
+#  ST      - ���߷���������
+#  UGT     - UG��NX����������
+#  UGST    - UG��NX������������
+#  DESCR   - ��̵�������
+#  MATREF  - ���߲��ϱ����ã�tool_materials.dat��
+#  MATDES  - ���߲�������
+#  HLD     - ���ڽ�����װ�������ϵ�װ��ϵͳ
+#            HLD ���ڼ�鵶���Ƿ��ܰ�װ����������/���ܵĵ�λ��pocket���С�
+#            ����� HLD ֵ����������˶�ѧ�� Operation Navigator �� pocket ����ָ����
+#            Holding Systems ֮һ��ƥ�䡣
+#  HLDDES  - װ��ϵͳ����
+#  HLDREF  - ���������ã�Holder Library Reference��
+#  TPREF   - ���ٵ�����ã�Tracking Point Library Reference��
+#  RIGID   - ���ԣ�Rigidity��
 #
-# 下表概述可用的库分类与 UG（NX）内部分类，以及它们之间的映射关系。
+# ������������������ϳ�����������ߣ�
+#
+# TSDIA  - ׶�α�ֱ����Tapered shank diameter��
+# TSLEN  - ׶�α����ȣ�Tapered shank length��
+# TSTLEN - ׶�α�׶�γ��ȣ�Tapered shank taper length��
+# ZMOUNT - Z ��װƫ�ã�Z Mount��
+#
+# �����������������г������ߣ�
+# XMOUNT - X ��װƫ�ã�X Mount��
+# YMOUNT - Y ��װƫ�ã�Y Mount��
+# HANGLE - ����Use Tool Holder���ر�ʱ�ĵ����ǣ�Holder angle��
+#
+# ������������������ϳ�����ߣ�
+# RAMPANGLE    - б�½ǣ�Ramp Angle��
+# HELICALDIA   - ����ֱ����Helical Diameter��
+# MINRAMPLEN   - ��Сб�³��ȣ�Min Ramp Length��
+# MAXCUTWIDTH  - ����������ȣ�Max Cut Width��
+#
+# ���� LIBRF��T��ST Ϊ�����
+#
+#
+# ��׼ UG/Library ʾ��ʹ������ T �� ST������/�����ͣ����Ը� ASCII �����ļ��еĵ��߽��з��ࡣ
+# �ÿ�����ͨ�� UGT��UG Type���� UGST��UG SubType��ӳ�䵽 UG��NX���ڲ����ࡣ
+#
+# �±��������õĿ������ UG��NX���ڲ����࣬�Լ�����֮���ӳ���ϵ��
 #
 #    T   Lib Type    ST  Lib Subtype                           UGT  UG Type        UGST  UG Subtype
 #    -------------- ----------------------------------------- ------------------- --------------------
@@ -182,129 +182,129 @@
 #    08  Multi-tool  01  turning                               NX-CAM Multi-tool object
 #    08  Multi-tool  02  drilling and turning                  NX-CAM Multi-tool object
 #
-# 如果你想在该 ASI 数据文件中引入新的类型/子类型，
-# 你还必须指定GT 和 U    GST，以便将新刀具类型映射到 UG（NX）内部分类。
-# 所有可用的 UG 类型与子类型都列在上表中。
-# 注意：对于 multi-tools（多刀具），没有 UGT、UGST。此处管理的所有 multi-tool 子类型
-#       在 NX-CAM 中都以一种 multi-tool 对象类型表示。
+# ��������ڸ� ASI �����ļ��������µ�����/�����ͣ�
+# �㻹����ָ��GT �� U    GST���Ա㽫�µ�������ӳ�䵽 UG��NX���ڲ����ࡣ
+# ���п��õ� UG �����������Ͷ������ϱ��С�
+# ע�⣺���� multi-tools���൶�ߣ���û�� UGT��UGST���˴����������� multi-tool ������
+#       �� NX-CAM �ж���һ�� multi-tool �������ͱ�ʾ��
 #
 #
-# 刀具中英对照表：
+# ������Ӣ���ձ���
 # 
-# End Mills Non-indexable               立铣刀（非可转位）
-# End Mills Indexable                   立铣刀（可转位）
-# Ball Mills Non-indexable              球头铣刀（非可转位）
-# Chamfer Mills Non-indexable           倒角铣刀（非可转位）
-# Spherical Mills Non-indexable         球面铣刀（非可转位）
-# Dovetail Mills                        燕尾铣刀
-# Face Mills Indexable                  面铣刀（可转位）
-# T-Slot Mills Non-indexable            T 型槽铣刀（非可转位）
-# Barrel Mills                          鼓形刀/桶形铣刀（Barrel Mill）
-# UG - 5 Parameter Cutter               UG 五参数刀具
-# UG - 7 Parameter Cutter               UG 七参数刀具
-# UG - 10 Parameter Cutter              UG 十参数刀具
-# Form Tool                             成形刀
-# Thread Mills                          螺纹铣刀
-# Twist Drills                          麻花钻
-# Insert Drills Indexable               可转位钻
-# Core Drills non-indexable             扩孔钻/心钻（非可转位）
-# Step Drills                           阶梯钻
-# Insert Drills Non-indexable           非可转位钻
-# Gun Drills Non-indexable              枪钻（非可转位）
-# Core Drills indexable                 扩孔钻/心钻（可转位）
-# Spot Facing Tools with Pilot          端面沉孔刀（带导向销）
-# Spot Facing Tools without Pilot       端面沉孔刀（不带导向销）
-# Spot Drills                           定位钻
-# Center Drills                         中心钻
-# Adjustable Boring Tools               可调镗刀
-# Fixed Diameter Boring                 定径镗刀
-# Machine Chucking Reamers              机用直柄铰刀
-# Taper Machine Reamers                 锥柄机用铰刀
-# Counter Boring Tools Non-indexable    沉孔刀（非可转位）
-# Counter Borring Tools Indexable       沉孔刀（可转位）
-# Counter Sinking Tools Non-indexable   沉头刀（非可转位）
-# Counter Sinking Tools Indexable       沉头刀（可转位）
-# Taps                                  丝锥
-# UG Drills                             UG 钻刀
-# Back Counter Sinking Tools            反向沉头刀
-# Boring Bar                            镗杆
-# Chamfer Boring Bar                    倒角镗杆
-# OD Turning                            外圆车刀
-# ID Turning                            内圆车刀
-# PrimeTurning(TM)                      PrimeTurning（高效车削）
-# OD Grooving                           外圆切槽刀
-# IDGrooving                            内圆切槽刀
-# Face Grooving                         端面切槽刀
-# Parting                               切断刀
-# OD Profiling Tools                    外圆仿形刀
-# ID Profiling Tools                    内圆仿形刀
-# OD Threading Tools                    外螺纹车刀
-# ID Threading Tools                    内螺纹车刀
-# OD Threading Triangular Standard      外螺纹三角标准车刀
-# ID Threading Triangular Standard      内螺纹三角标准车刀
-# OD Threading Triangular Trapezoidal   外螺纹三角/梯形车刀
-# ID Threading Triangular Trapezoidal   内螺纹三角/梯形车刀
-# Turning Button                        纽扣刀/按钮刀
-# Generic                               通用（实体刀具）
-# Probe                                 测头
-# Wire                                  电极丝（线切割）
-# turning                               车削（多刀具）
-# drilling and turning                  钻削与车削（多刀具）
+# End Mills Non-indexable               ��ϳ�����ǿ�תλ��
+# End Mills Indexable                   ��ϳ������תλ��
+# Ball Mills Non-indexable              ��ͷϳ�����ǿ�תλ��
+# Chamfer Mills Non-indexable           ����ϳ�����ǿ�תλ��
+# Spherical Mills Non-indexable         ����ϳ�����ǿ�תλ��
+# Dovetail Mills                        ��βϳ��
+# Face Mills Indexable                  ��ϳ������תλ��
+# T-Slot Mills Non-indexable            T �Ͳ�ϳ�����ǿ�תλ��
+# Barrel Mills                          ���ε�/Ͱ��ϳ����Barrel Mill��
+# UG - 5 Parameter Cutter               UG ���������
+# UG - 7 Parameter Cutter               UG �߲�������
+# UG - 10 Parameter Cutter              UG ʮ��������
+# Form Tool                             ���ε�
+# Thread Mills                          ����ϳ��
+# Twist Drills                          �黨��
+# Insert Drills Indexable               ��תλ��
+# Core Drills non-indexable             ������/���꣨�ǿ�תλ��
+# Step Drills                           ������
+# Insert Drills Non-indexable           �ǿ�תλ��
+# Gun Drills Non-indexable              ǹ�꣨�ǿ�תλ��
+# Core Drills indexable                 ������/���꣨��תλ��
+# Spot Facing Tools with Pilot          ������׵�������������
+# Spot Facing Tools without Pilot       ������׵���������������
+# Spot Drills                           ��λ��
+# Center Drills                         ������
+# Adjustable Boring Tools               �ɵ��۵�
+# Fixed Diameter Boring                 �����۵�
+# Machine Chucking Reamers              ����ֱ���µ�
+# Taper Machine Reamers                 ׶�����ýµ�
+# Counter Boring Tools Non-indexable    ���׵����ǿ�תλ��
+# Counter Borring Tools Indexable       ���׵�����תλ��
+# Counter Sinking Tools Non-indexable   ��ͷ�����ǿ�תλ��
+# Counter Sinking Tools Indexable       ��ͷ������תλ��
+# Taps                                  ˿׶
+# UG Drills                             UG �굶
+# Back Counter Sinking Tools            �����ͷ��
+# Boring Bar                            �۸�
+# Chamfer Boring Bar                    �����۸�
+# OD Turning                            ��Բ����
+# ID Turning                            ��Բ����
+# PrimeTurning(TM)                      PrimeTurning����Ч������
+# OD Grooving                           ��Բ�в۵�
+# IDGrooving                            ��Բ�в۵�
+# Face Grooving                         �����в۵�
+# Parting                               �жϵ�
+# OD Profiling Tools                    ��Բ���ε�
+# ID Profiling Tools                    ��Բ���ε�
+# OD Threading Tools                    �����Ƴ���
+# ID Threading Tools                    �����Ƴ���
+# OD Threading Triangular Standard      ���������Ǳ�׼����
+# ID Threading Triangular Standard      ���������Ǳ�׼����
+# OD Threading Triangular Trapezoidal   ����������/���γ���
+# ID Threading Triangular Trapezoidal   ����������/���γ���
+# Turning Button                        Ŧ�۵�/��ť��
+# Generic                               ͨ�ã�ʵ�嵶�ߣ�
+# Probe                                 ��ͷ
+# Wire                                  �缫˿�����и
+# turning                               �������൶�ߣ�
+# drilling and turning                  �����복�����൶�ߣ�
 # 
 # 
-# **字段缩写（LIBRF/T/ST/UGT/UGST/…）“中英对照+用途解释”表
+# **�ֶ���д��LIBRF/T/ST/UGT/UGST/��������Ӣ����+��;���͡���
 # 
-# LIBRF         刀具库引用/刀具唯一编号（Library Reference）
-# T             刀具类型（Tool Type）
-# ST            刀具子类型（Tool SubType）
-# UGT           UG/NX 内部刀具类型（UG Tool Type）
-# UGST          UG/NX 内部刀具子类型（UG Tool SubType）
-# DESCR         描述（Description）
+# LIBRF         ���߿�����/����Ψһ��ţ�Library Reference��
+# T             �������ͣ�Tool Type��
+# ST            ���������ͣ�Tool SubType��
+# UGT           UG/NX �ڲ��������ͣ�UG Tool Type��
+# UGST          UG/NX �ڲ����������ͣ�UG Tool SubType��
+# DESCR         ������Description��
 #      
-# MATREF        刀具材料表引用（Reference to cutter material table，例如 tool_materials.dat 中的键）
-# MATDES        刀具材料描述（Cutter material description）
+# MATREF        ���߲��ϱ����ã�Reference to cutter material table������ tool_materials.dat �еļ���
+# MATDES        ���߲���������Cutter material description��
 #      
-# HLD           装夹/刀柄系统代码（Holding system；用于匹配机床刀库刀位 pocket 的 Holding Systems）
-# HLDDES        装夹/刀柄系统描述（Holding system description）
+# HLD           װ��/����ϵͳ���루Holding system������ƥ��������⵶λ pocket �� Holding Systems��
+# HLDDES        װ��/����ϵͳ������Holding system description��
 #      
-# HLDREF        刀柄库引用（Holder Library Reference；指向刀柄库中的具体条目）
-# TPREF         跟踪点库引用（Tracking Point Library Reference；用于仿真/测量等）
-# RIGID         刚性系数（Rigidity）
+# HLDREF        ���������ã�Holder Library Reference��ָ�򵶱����еľ�����Ŀ��
+# TPREF         ���ٵ�����ã�Tracking Point Library Reference�����ڷ���/�����ȣ�
+# RIGID         ����ϵ����Rigidity��
 #      
-# DIA           直径（Diameter）
-# DIA2          第二直径（Diameter 2；如沉头/复合直径类刀具会用到）
-# FLEN          刃长/有效切削长度（Flute Length / cutting depth）
-# FN            刃数（Number of flutes）
-# HEI           高度/总长（Height / overall length）
+# DIA           ֱ����Diameter��
+# DIA2          �ڶ�ֱ����Diameter 2�����ͷ/����ֱ���൶�߻��õ���
+# FLEN          �г�/��Ч�������ȣ�Flute Length / cutting depth��
+# FN            ������Number of flutes��
+# HEI           �߶�/�ܳ���Height / overall length��
 #      
-# ZOFF          Z 偏置（Tool Z Offset）
-# HOFF          刀柄偏置（Tool Holder Offset）
-# Z MOUNT       Z 安装偏置（Z Mount；通常写作 ZMOUNT）
+# ZOFF          Z ƫ�ã�Tool Z Offset��
+# HOFF          ����ƫ�ã�Tool Holder Offset��
+# Z MOUNT       Z ��װƫ�ã�Z Mount��ͨ��д�� ZMOUNT��
 #      
-# TAPA          锥度角（Taper Angle）
-# TIPA          刀尖角（Tip Angle）
-# PNTA          顶角/尖端角（Point Angle）
-# PNTL          尖端长度（Point Length）
-# COR/COR1      刀尖圆角/角半径（Corner radius）
+# TAPA          ׶�Ƚǣ�Taper Angle��
+# TIPA          ����ǣ�Tip Angle��
+# PNTA          ����/��˽ǣ�Point Angle��
+# PNTL          ��˳��ȣ�Point Length��
+# COR/COR1      ����Բ��/�ǰ뾶��Corner radius��
 #      
-# TSDIA         锥柄直径（Tapered shank diameter）
-# TSLEN         锥柄长度（Tapered shank length）
-# TSTLEN        锥柄锥段长度（Tapered shank taper length）
+# TSDIA         ׶��ֱ����Tapered shank diameter��
+# TSLEN         ׶�����ȣ�Tapered shank length��
+# TSTLEN        ׶��׶�γ��ȣ�Tapered shank taper length��
 #      
-# CTH           内冷/通冷却液（Coolant Through，0/1）
+# CTH           ����/ͨ��ȴҺ��Coolant Through��0/1��
 # 
-# RAMPANGLE     斜坡角（Ramp angle）
-# HELICALDIA    螺旋直径（Helical diameter）
-# MINRAMPLEN    最小斜坡长度（Min ramp length）
-# MAXCUTWIDTH   最大切削宽度（Max cut width）
+# RAMPANGLE     б�½ǣ�Ramp angle��
+# HELICALDIA    ����ֱ����Helical diameter��
+# MINRAMPLEN    ��Сб�³��ȣ�Min ramp length��
+# MAXCUTWIDTH   ����������ȣ�Max cut width��
 # 
-# XMOUNT        X 安装偏置（X Mount，车刀常用）
-# YMOUNT        Y 安装偏置（Y Mount，车刀常用）
-# HANGLE        刀柄角（Holder angle，某些车刀定义会用）
+# XMOUNT        X ��װƫ�ã�X Mount���������ã�
+# YMOUNT        Y ��װƫ�ã�Y Mount���������ã�
+# HANGLE        �����ǣ�Holder angle��ĳЩ����������ã�
 # 
-# DROT          旋转方向（Tool direction：3=顺时针，4=逆时针；以文件注释为准）
+# DROT          ��ת����Tool direction��3=˳ʱ�룬4=��ʱ�룻���ļ�ע��Ϊ׼��
 # 
-# SHAREF        刀杆/刀柄参考（Tool shank reference；用于关联刀杆/柄部几何）
+# SHAREF        ����/�����ο���Tool shank reference�����ڹ�������/�������Σ�
 #
 #
 # Milling Tools
@@ -339,129 +339,129 @@
 #  HOFF    - Tool Holder Offset
 
 # ==================================================
-# >>>>>> 自定义刀具（置顶置前显示区）<<<<<<
+# >>>>>> �Զ��嵶�ߣ��ö���ǰ��ʾ����<<<<<<
 # ==================================================
 
 #CLASS END_MILL_NON_INDEXABLE
 FORMAT   LIBRF   T   ST  UGT  UGST  DESCR              MATREF      MATDES          TLNUM  ADJREG  CUTCOMREG  HLD  HLDDES  DIA       FN  HEI       ZOFF     DROT  FLEN      TAPA     TIPA     COR1     CTH  HOFF     ZMOUNT   RIGID  TSDIA  TSLEN  TSTLEN  RAMPANGLE  HELICALDIA  MINRAMPLEN  MAXCUTWIDTH  HLDREF         TPREF
 #--------+-------+---+---+----+-----+------------------+-----------+---------------+------+-------+----------+----+-------+---------+---+---------+--------+-----+---------+--------+--------+--------+----+--------+--------+------+------+------+-------+----------+-----------+-----------+------------+--------------+------
-DATA   | D35L99| 02| 01| 01 | 01  | 整体立铣刀 D35L99| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 35.00000| 4 | 99.00000| 0.00000| 3   | 70.00000| 0.00000| 0.00000| 0.00000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ASC32-105|
-DATA   | D32L99| 02| 01| 01 | 01  | 整体立铣刀 D32L99| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 32.00000| 4 | 99.00000| 0.00000| 3   | 64.00000| 0.00000| 0.00000| 0.00000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ASC32-105|
-DATA   | D30L88| 02| 01| 01 | 01  | 整体立铣刀 D30L88| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 30.00000| 4 | 88.00000| 0.00000| 3   | 60.00000| 0.00000| 0.00000| 0.00000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ASC32-105|
-DATA   | D25L88| 02| 01| 01 | 01  | 整体立铣刀 D25L88| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 25.00000| 4 | 88.00000| 0.00000| 3   | 50.00000| 0.00000| 0.00000| 0.00000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER40-100 |
-DATA   | D21L77| 02| 01| 01 | 01  | 整体立铣刀 D21L77| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 21.00000| 4 | 77.00000| 0.00000| 3   | 42.00000| 0.00000| 0.00000| 0.00000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER40-100 |
-DATA   | D20L77| 02| 01| 01 | 01  | 整体立铣刀 D20L77| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 20.00000| 4 | 77.00000| 0.00000| 3   | 50.00000| 0.00000| 0.00000| 0.00000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER32-100 |
-DATA   | D12L55| 02| 01| 01 | 01  | 整体立铣刀 D12L55| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 12.00000| 4 | 55.00000| 0.00000| 3   | 30.00000| 0.00000| 0.00000| 0.00000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER20-100 |
-DATA   | D10L55| 02| 01| 01 | 01  | 整体立铣刀 D10L55| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 10.00000| 4 | 55.00000| 0.00000| 3   | 25.00000| 0.00000| 0.00000| 0.00000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER16-100 |
-DATA   | D8L44 | 02| 01| 01 | 01  | 整体立铣刀 D8L44 | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 8.00000 | 4 | 44.00000| 0.00000| 3   | 20.00000| 0.00000| 0.00000| 0.00000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER16-100 |
-DATA   | D6L33 | 02| 01| 01 | 01  | 整体立铣刀 D6L33 | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 6.00000 | 3 | 33.00000| 0.00000| 3   | 16.00000| 0.00000| 0.00000| 0.00000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER16-100 |
-DATA   | D4L22 | 02| 01| 01 | 01  | 整体立铣刀 D4L22 | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 4.00000 | 3 | 22.00000| 0.00000| 3   | 12.00000| 0.00000| 0.00000| 0.00000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER16-100 |
+DATA   | D35L99| 02| 01| 01 | 01  | ������ϳ�� D35L99| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 35.00000| 4 | 99.00000| 0.00000| 3   | 70.00000| 0.00000| 0.00000| 0.00000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ASC32-105|
+DATA   | D32L99| 02| 01| 01 | 01  | ������ϳ�� D32L99| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 32.00000| 4 | 99.00000| 0.00000| 3   | 64.00000| 0.00000| 0.00000| 0.00000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ASC32-105|
+DATA   | D30L88| 02| 01| 01 | 01  | ������ϳ�� D30L88| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 30.00000| 4 | 88.00000| 0.00000| 3   | 60.00000| 0.00000| 0.00000| 0.00000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ASC32-105|
+DATA   | D25L88| 02| 01| 01 | 01  | ������ϳ�� D25L88| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 25.00000| 4 | 88.00000| 0.00000| 3   | 50.00000| 0.00000| 0.00000| 0.00000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER40-100 |
+DATA   | D21L77| 02| 01| 01 | 01  | ������ϳ�� D21L77| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 21.00000| 4 | 77.00000| 0.00000| 3   | 42.00000| 0.00000| 0.00000| 0.00000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER40-100 |
+DATA   | D20L77| 02| 01| 01 | 01  | ������ϳ�� D20L77| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 20.00000| 4 | 77.00000| 0.00000| 3   | 50.00000| 0.00000| 0.00000| 0.00000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER32-100 |
+DATA   | D12L55| 02| 01| 01 | 01  | ������ϳ�� D12L55| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 12.00000| 4 | 55.00000| 0.00000| 3   | 30.00000| 0.00000| 0.00000| 0.00000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER20-100 |
+DATA   | D10L55| 02| 01| 01 | 01  | ������ϳ�� D10L55| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 10.00000| 4 | 55.00000| 0.00000| 3   | 25.00000| 0.00000| 0.00000| 0.00000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER16-100 |
+DATA   | D8L44 | 02| 01| 01 | 01  | ������ϳ�� D8L44 | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 8.00000 | 4 | 44.00000| 0.00000| 3   | 20.00000| 0.00000| 0.00000| 0.00000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER16-100 |
+DATA   | D6L33 | 02| 01| 01 | 01  | ������ϳ�� D6L33 | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 6.00000 | 3 | 33.00000| 0.00000| 3   | 16.00000| 0.00000| 0.00000| 0.00000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER16-100 |
+DATA   | D4L22 | 02| 01| 01 | 01  | ������ϳ�� D4L22 | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 4.00000 | 3 | 22.00000| 0.00000| 3   | 12.00000| 0.00000| 0.00000| 0.00000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER16-100 |
 #END_DATA
 
 #CLASS END_MILL_INDEXABLE
 FORMAT   LIBRF       T   ST  UGT  UGST  DESCR                   MATREF      MATDES          TLNUM  ADJREG  CUTCOMREG  HLD  HLDDES  DIA       FN  HEI        ZOFF     DROT  FLEN      TAPA     TIPA     COR1     CTH  HOFF     ZMOUNT   RIGID  TSDIA  TSLEN  TSTLEN  RAMPANGLE  HELICALDIA  MINRAMPLEN  MAXCUTWIDTH  HLDREF         TPREF
 #--------+-----------+---+---+----+-----+-----------------------+-----------+---------------+------+-------+----------+----+-------+---------+---+----------+--------+-----+---------+--------+--------+--------+----+--------+--------+------+------+------+-------+----------+-----------+-----------+------------+--------------+------
-DATA   | D63L200   | 02| 02| 01 | 01  | 面铣飞刀盘 D63L200    | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 63.00000| 4 | 50.00000 | 0.00000| 3   | 11.00000| 0.00000| 0.00000| 0.00000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50FMB22-200|
-DATA   | D63R6L200 | 02| 02| 01 | 01  | 面铣飞刀盘 D63R6L200  | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 63.00000| 4 | 50.00000 | 0.00000| 3   | 6.00000 | 0.00000| 0.00000| 6.00000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50FMB22-200|
-DATA   | D63R08L200| 02| 02| 01 | 01  | 面铣飞刀盘 D63R08L200 | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 63.00000| 4 | 50.00000 | 0.00000| 3   | 11.00000| 0.00000| 0.00000| 0.80000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50FMB22-200|
-DATA   | D63R8L200 | 02| 02| 01 | 01  | 面铣飞刀盘 D63R8L200  | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 63.00000| 4 | 50.00000 | 0.00000| 3   | 8.00000 | 0.00000| 0.00000| 8.00000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50FMB22-200|
-DATA   | D40R5L111 | 02| 02| 01 | 01  | 嵌入式牛鼻刀 D40R5L111| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 40.00000| 4 | 111.00000| 0.00000| 3   | 5.00000 | 0.00000| 0.00000| 5.00000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ASC32-105|
-DATA   | D35R08L99 | 02| 02| 01 | 01  | 嵌入式牛鼻刀 D35R08L99| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 35.00000| 4 | 99.00000 | 0.00000| 3   | 11.00000| 0.00000| 0.00000| 0.80000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ASC32-105|
-DATA   | D35R5L99  | 02| 02| 01 | 01  | 嵌入式牛鼻刀 D35R5L99 | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 35.00000| 4 | 99.00000 | 0.00000| 3   | 5.00000 | 0.00000| 0.00000| 5.00000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ASC32-105|
-DATA   | D30R5L88  | 02| 02| 01 | 01  | 嵌入式牛鼻刀 D30R5L88 | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 30.00000| 4 | 88.00000 | 0.00000| 3   | 5.00000 | 0.00000| 0.00000| 5.00000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ASC32-105|
-DATA   | D26R08L88 | 02| 02| 01 | 01  | 嵌入式牛鼻刀 D26R08L88| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 26.00000| 4 | 88.00000 | 0.00000| 3   | 11.00000| 0.00000| 0.00000| 0.80000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER40-100 |
-DATA   | D25R08L88 | 02| 02| 01 | 01  | 嵌入式牛鼻刀 D25R08L88| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 25.00000| 3 | 88.00000 | 0.00000| 3   | 11.00000| 0.00000| 0.00000| 0.80000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER40-100 |
-DATA   | D25R5L88  | 02| 02| 01 | 01  | 嵌入式牛鼻刀 D25R5L88 | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 25.00000| 3 | 88.00000 | 0.00000| 3   | 5.00000 | 0.00000| 0.00000| 5.00000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER40-100 |
-DATA   | D21R08L77 | 02| 02| 01 | 01  | 嵌入式牛鼻刀 D21R08L77| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 21.00000| 3 | 77.00000 | 0.00000| 3   | 11.00000| 0.00000| 0.00000| 0.80000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER40-100 |
-DATA   | D17R08L66 | 02| 02| 01 | 01  | 嵌入式牛鼻刀 D17R08L66| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 17.00000| 3 | 66.00000 | 0.00000| 3   | 11.00000| 0.00000| 0.00000| 0.80000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER32-100 |
-DATA   | D17R4L66  | 02| 02| 01 | 01  | 嵌入式牛鼻刀 D17R4L66 | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 17.00000| 3 | 66.00000 | 0.00000| 3   | 4.00000 | 0.00000| 0.00000| 4.00000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER32-100 |
+DATA   | D63L200   | 02| 02| 01 | 01  | ��ϳ�ɵ��� D63L200    | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 63.00000| 4 | 50.00000 | 0.00000| 3   | 11.00000| 0.00000| 0.00000| 0.00000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50FMB22-200|
+DATA   | D63R6L200 | 02| 02| 01 | 01  | ��ϳ�ɵ��� D63R6L200  | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 63.00000| 4 | 50.00000 | 0.00000| 3   | 6.00000 | 0.00000| 0.00000| 6.00000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50FMB22-200|
+DATA   | D63R08L200| 02| 02| 01 | 01  | ��ϳ�ɵ��� D63R08L200 | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 63.00000| 4 | 50.00000 | 0.00000| 3   | 11.00000| 0.00000| 0.00000| 0.80000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50FMB22-200|
+DATA   | D63R8L200 | 02| 02| 01 | 01  | ��ϳ�ɵ��� D63R8L200  | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 63.00000| 4 | 50.00000 | 0.00000| 3   | 8.00000 | 0.00000| 0.00000| 8.00000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50FMB22-200|
+DATA   | D40R5L111 | 02| 02| 01 | 01  | Ƕ��ʽţ�ǵ� D40R5L111| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 40.00000| 4 | 111.00000| 0.00000| 3   | 5.00000 | 0.00000| 0.00000| 5.00000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ASC32-105|
+DATA   | D35R08L99 | 02| 02| 01 | 01  | Ƕ��ʽţ�ǵ� D35R08L99| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 35.00000| 4 | 99.00000 | 0.00000| 3   | 11.00000| 0.00000| 0.00000| 0.80000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ASC32-105|
+DATA   | D35R5L99  | 02| 02| 01 | 01  | Ƕ��ʽţ�ǵ� D35R5L99 | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 35.00000| 4 | 99.00000 | 0.00000| 3   | 5.00000 | 0.00000| 0.00000| 5.00000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ASC32-105|
+DATA   | D30R5L88  | 02| 02| 01 | 01  | Ƕ��ʽţ�ǵ� D30R5L88 | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 30.00000| 4 | 88.00000 | 0.00000| 3   | 5.00000 | 0.00000| 0.00000| 5.00000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ASC32-105|
+DATA   | D26R08L88 | 02| 02| 01 | 01  | Ƕ��ʽţ�ǵ� D26R08L88| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 26.00000| 4 | 88.00000 | 0.00000| 3   | 11.00000| 0.00000| 0.00000| 0.80000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER40-100 |
+DATA   | D25R08L88 | 02| 02| 01 | 01  | Ƕ��ʽţ�ǵ� D25R08L88| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 25.00000| 3 | 88.00000 | 0.00000| 3   | 11.00000| 0.00000| 0.00000| 0.80000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER40-100 |
+DATA   | D25R5L88  | 02| 02| 01 | 01  | Ƕ��ʽţ�ǵ� D25R5L88 | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 25.00000| 3 | 88.00000 | 0.00000| 3   | 5.00000 | 0.00000| 0.00000| 5.00000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER40-100 |
+DATA   | D21R08L77 | 02| 02| 01 | 01  | Ƕ��ʽţ�ǵ� D21R08L77| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 21.00000| 3 | 77.00000 | 0.00000| 3   | 11.00000| 0.00000| 0.00000| 0.80000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER40-100 |
+DATA   | D17R08L66 | 02| 02| 01 | 01  | Ƕ��ʽţ�ǵ� D17R08L66| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 17.00000| 3 | 66.00000 | 0.00000| 3   | 11.00000| 0.00000| 0.00000| 0.80000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER32-100 |
+DATA   | D17R4L66  | 02| 02| 01 | 01  | Ƕ��ʽţ�ǵ� D17R4L66 | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 17.00000| 3 | 66.00000 | 0.00000| 3   | 4.00000 | 0.00000| 0.00000| 4.00000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER32-100 |
 #END_DATA
 
 #CLASS BALL_MILL_NON_INDEXABLE
 FORMAT   LIBRF            T   ST  UGT  UGST  DESCR                           MATREF      MATDES          TLNUM  ADJREG  CUTCOMREG  HLD  HLDDES  DIA       FN  HEI       ZOFF     DROT  FLEN      TAPA     COR1      CTH  HOFF     ZMOUNT   RIGID  TSDIA  TSLEN  TSTLEN  RAMPANGLE  HELICALDIA  MINRAMPLEN  MAXCUTWIDTH  HLDREF        TPREF
 #--------+----------------+---+---+----+-----+-------------------------------+-----------+---------------+------+-------+----------+----+-------+---------+---+---------+--------+-----+---------+--------+---------+----+--------+--------+------+------+------+-------+----------+-----------+-----------+------------+-------------+------
-DATA   | D20R10L77_Solid| 02| 3 | 01 | 4   | 整体球头立铣刀 D20R10L77_Solid| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 20.00000| 4 | 77.00000| 0.00000| 3   | 50.00000| 0.00000| 10.00000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER32-100|
-DATA   | D16R8L66_Solid | 02| 3 | 01 | 4   | 整体球头立铣刀 D16R8L66_Solid | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 16.00000| 4 | 66.00000| 0.00000| 3   | 40.00000| 0.00000| 8.00000 | 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER25-100|
-DATA   | D12R6L55       | 02| 3 | 01 | 4   | 整体球头立铣刀 D12R6L55       | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 12.00000| 4 | 55.00000| 0.00000| 3   | 30.00000| 0.00000| 6.00000 | 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER20-100|
-DATA   | D10R5L55       | 02| 3 | 01 | 4   | 整体球头立铣刀 D10R5L55       | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 10.00000| 4 | 55.00000| 0.00000| 3   | 25.00000| 0.00000| 5.00000 | 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER16-100|
-DATA   | D8R4L44        | 02| 3 | 01 | 4   | 整体球头立铣刀 D8R4L44        | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 8.00000 | 4 | 44.00000| 0.00000| 3   | 20.00000| 0.00000| 4.00000 | 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER16-100|
-DATA   | D6R3L33        | 02| 3 | 01 | 4   | 整体球头立铣刀 D6R3L33        | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 6.00000 | 2 | 33.00000| 0.00000| 3   | 16.00000| 0.00000| 3.00000 | 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER16-100|
-DATA   | D4R2L22        | 02| 3 | 01 | 4   | 整体球头立铣刀 D4R2L22        | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 4.00000 | 2 | 22.00000| 0.00000| 3   | 12.00000| 0.00000| 2.00000 | 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER16-100|
+DATA   | D20R10L77_Solid| 02| 3 | 01 | 4   | ������ͷ��ϳ�� D20R10L77_Solid| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 20.00000| 4 | 77.00000| 0.00000| 3   | 50.00000| 0.00000| 10.00000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER32-100|
+DATA   | D16R8L66_Solid | 02| 3 | 01 | 4   | ������ͷ��ϳ�� D16R8L66_Solid | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 16.00000| 4 | 66.00000| 0.00000| 3   | 40.00000| 0.00000| 8.00000 | 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER25-100|
+DATA   | D12R6L55       | 02| 3 | 01 | 4   | ������ͷ��ϳ�� D12R6L55       | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 12.00000| 4 | 55.00000| 0.00000| 3   | 30.00000| 0.00000| 6.00000 | 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER20-100|
+DATA   | D10R5L55       | 02| 3 | 01 | 4   | ������ͷ��ϳ�� D10R5L55       | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 10.00000| 4 | 55.00000| 0.00000| 3   | 25.00000| 0.00000| 5.00000 | 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER16-100|
+DATA   | D8R4L44        | 02| 3 | 01 | 4   | ������ͷ��ϳ�� D8R4L44        | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 8.00000 | 4 | 44.00000| 0.00000| 3   | 20.00000| 0.00000| 4.00000 | 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER16-100|
+DATA   | D6R3L33        | 02| 3 | 01 | 4   | ������ͷ��ϳ�� D6R3L33        | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 6.00000 | 2 | 33.00000| 0.00000| 3   | 16.00000| 0.00000| 3.00000 | 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER16-100|
+DATA   | D4R2L22        | 02| 3 | 01 | 4   | ������ͷ��ϳ�� D4R2L22        | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 4.00000 | 2 | 22.00000| 0.00000| 3   | 12.00000| 0.00000| 2.00000 | 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER16-100|
 #END_DATA
 
 #CLASS BALL_MILL_INDEXABLE
 FORMAT   LIBRF             T   ST  UGT  UGST  DESCR                            MATREF      MATDES          TLNUM  ADJREG  CUTCOMREG  HLD  HLDDES  DIA       FN  HEI       ZOFF     DROT  FLEN      TAPA     COR1      CTH  HOFF     ZMOUNT   RIGID  TSDIA  TSLEN  TSTLEN  RAMPANGLE  HELICALDIA  MINRAMPLEN  MAXCUTWIDTH  HLDREF         TPREF
 #--------+-----------------+---+---+----+-----+--------------------------------+-----------+---------------+------+-------+----------+----+-------+---------+---+---------+--------+-----+---------+--------+---------+----+--------+--------+------+------+------+-------+----------+-----------+-----------+------------+--------------+------
-DATA   | D30R15L99       | 02| 3 | 01 | 4   | 嵌入式球头铣刀 D30R15L99       | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 30.00000| 2 | 99.00000| 0.00000| 3   | 15.00000| 0.00000| 15.00000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ASC32-105|
-DATA   | D25R12.5L88     | 02| 3 | 01 | 4   | 嵌入式球头铣刀 D25R12.5L88     | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 25.00000| 2 | 88.00000| 0.00000| 3   | 12.50000| 0.00000| 12.50000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER40-100 |
-DATA   | D20R10L77_Insert| 02| 3 | 01 | 4   | 嵌入式球头铣刀 D20R10L77_Insert| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 20.00000| 2 | 77.00000| 0.00000| 3   | 10.00000| 0.00000| 10.00000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER32-100 |
-DATA   | D16R8L66_Insert | 02| 3 | 01 | 4   | 嵌入式球头铣刀 D16R8L66_Insert | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 16.00000| 2 | 66.00000| 0.00000| 3   | 8.00000 | 0.00000| 8.00000 | 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER25-100 |
+DATA   | D30R15L99       | 02| 3 | 01 | 4   | Ƕ��ʽ��ͷϳ�� D30R15L99       | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 30.00000| 2 | 99.00000| 0.00000| 3   | 15.00000| 0.00000| 15.00000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ASC32-105|
+DATA   | D25R12.5L88     | 02| 3 | 01 | 4   | Ƕ��ʽ��ͷϳ�� D25R12.5L88     | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 25.00000| 2 | 88.00000| 0.00000| 3   | 12.50000| 0.00000| 12.50000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER40-100 |
+DATA   | D20R10L77_Insert| 02| 3 | 01 | 4   | Ƕ��ʽ��ͷϳ�� D20R10L77_Insert| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 20.00000| 2 | 77.00000| 0.00000| 3   | 10.00000| 0.00000| 10.00000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER32-100 |
+DATA   | D16R8L66_Insert | 02| 3 | 01 | 4   | Ƕ��ʽ��ͷϳ�� D16R8L66_Insert | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 16.00000| 2 | 66.00000| 0.00000| 3   | 8.00000 | 0.00000| 8.00000 | 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER25-100 |
 #END_DATA
 
 #CLASS CHAMFER_MILL_NON_INDEXABLE
 FORMAT   LIBRF     T   ST  UGT  UGST  DESCR            MATREF      MATDES          TLNUM  ADJREG  CUTCOMREG  HLD  HLDDES  DIA       FN  HEI        ZOFF     DROT  FLEN      TAPA      CHAMFERLEN  COR1     CTH  HOFF     ZMOUNT   RIGID  TSDIA  TSLEN  TSTLEN  RAMPANGLE  HELICALDIA  MINRAMPLEN  MAXCUTWIDTH  HLDREF        TPREF
 #--------+---------+---+---+----+-----+----------------+-----------+---------------+------+-------+----------+----+-------+---------+---+----------+--------+-----+---------+---------+-----------+--------+----+--------+--------+------+------+------+-------+----------+-----------+-----------+------------+-------------+------
-DATA   | DJD25R08| 02| 5 | 01 | 5   | 倒角刀 DJD25R08| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 25.00000| 1 | 101.00000| 0.00000| 3   | 11.93420| 45.00000| 12.16860  | 0.80000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER40-100|
+DATA   | DJD25R08| 02| 5 | 01 | 5   | ���ǵ� DJD25R08| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 25.00000| 1 | 101.00000| 0.00000| 3   | 11.93420| 45.00000| 12.16860  | 0.80000| 0  | 0.00000| 0.00000| 1.0  |      |      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ER40-100|
 #END_DATA
 
 #CLASS CHUCKING_REAMER
 FORMAT   LIBRF  T   ST  UGT  UGST  DESCR      MATREF      MATDES          TLNUM  ADJREG  CUTCOMREG  HLD  HLDDES  DIA       FN  HEI        ZOFF     DROT  FLEN      TIPLEN   SDIA      TAPA     TDD  CTH  HOFF     ZMOUNT   RIGID  TSDIA     TSLEN  TSTLEN  HLDREF        TPREF
 #--------+------+---+---+----+-----+----------+-----------+---------------+------+-------+----------+----+-------+---------+---+----------+--------+-----+---------+--------+---------+--------+----+----+--------+--------+------+---------+------+-------+-------------+------
-DATA   | JD20 | 03| 41| 02 | 06  | 铰刀 JD20| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 20.00000| 8 | 165.00000| 0.00000| 3   | 60.00000| 2.00000| 20.00000| 0.00000|    | 0  | 0.00000| 0.00000| 1.0  | 20.00000|      |       | BT50ER32-100|
-DATA   | JD16 | 03| 41| 02 | 06  | 铰刀 JD16| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 16.00000| 8 | 140.00000| 0.00000| 3   | 52.00000| 2.00000| 16.00000| 0.00000|    | 0  | 0.00000| 0.00000| 1.0  | 16.00000|      |       | BT50ER25-100|
-DATA   | JD12 | 03| 41| 02 | 06  | 铰刀 JD12| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 12.00000| 6 | 121.00000| 0.00000| 3   | 44.00000| 2.00000| 12.00000| 0.00000|    | 0  | 0.00000| 0.00000| 1.0  | 12.00000|      |       | BT50ER20-100|
-DATA   | JD10 | 03| 41| 02 | 06  | 铰刀 JD10| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 10.00000| 6 | 103.00000| 0.00000| 3   | 38.00000| 1.50000| 10.00000| 0.00000|    | 0  | 0.00000| 0.00000| 1.0  | 10.00000|      |       | BT50ER16-100|
-DATA   | JD8  | 03| 41| 02 | 06  | 铰刀 JD8 | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 8.00000 | 6 | 87.00000 | 0.00000| 3   | 33.00000| 1.50000| 8.00000 | 0.00000|    | 0  | 0.00000| 0.00000| 1.0  | 8.00000 |      |       | BT50ER16-100|
-DATA   | JD6  | 03| 41| 02 | 06  | 铰刀 JD6 | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 6.00000 | 6 | 63.00000 | 0.00000| 3   | 26.00000| 1.00000| 6.00000 | 0.00000|    | 0  | 0.00000| 0.00000| 1.0  | 6.00000 |      |       | BT50ER16-100|
-DATA   | JD5  | 03| 41| 02 | 06  | 铰刀 JD5 | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 5.00000 | 6 | 56.00000 | 0.00000| 3   | 23.00000| 1.00000| 5.00000 | 0.00000|    | 0  | 0.00000| 0.00000| 1.0  | 5.00000 |      |       | BT50ER16-100|
-DATA   | JD4  | 03| 41| 02 | 06  | 铰刀 JD4 | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 4.00000 | 6 | 45.00000 | 0.00000| 3   | 19.00000| 1.00000| 4.00000 | 0.00000|    | 0  | 0.00000| 0.00000| 1.0  | 4.00000 |      |       | BT50ER16-100|
+DATA   | JD20 | 03| 41| 02 | 06  | �µ� JD20| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 20.00000| 8 | 165.00000| 0.00000| 3   | 60.00000| 2.00000| 20.00000| 0.00000|    | 0  | 0.00000| 0.00000| 1.0  | 20.00000|      |       | BT50ER32-100|
+DATA   | JD16 | 03| 41| 02 | 06  | �µ� JD16| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 16.00000| 8 | 140.00000| 0.00000| 3   | 52.00000| 2.00000| 16.00000| 0.00000|    | 0  | 0.00000| 0.00000| 1.0  | 16.00000|      |       | BT50ER25-100|
+DATA   | JD12 | 03| 41| 02 | 06  | �µ� JD12| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 12.00000| 6 | 121.00000| 0.00000| 3   | 44.00000| 2.00000| 12.00000| 0.00000|    | 0  | 0.00000| 0.00000| 1.0  | 12.00000|      |       | BT50ER20-100|
+DATA   | JD10 | 03| 41| 02 | 06  | �µ� JD10| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 10.00000| 6 | 103.00000| 0.00000| 3   | 38.00000| 1.50000| 10.00000| 0.00000|    | 0  | 0.00000| 0.00000| 1.0  | 10.00000|      |       | BT50ER16-100|
+DATA   | JD8  | 03| 41| 02 | 06  | �µ� JD8 | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 8.00000 | 6 | 87.00000 | 0.00000| 3   | 33.00000| 1.50000| 8.00000 | 0.00000|    | 0  | 0.00000| 0.00000| 1.0  | 8.00000 |      |       | BT50ER16-100|
+DATA   | JD6  | 03| 41| 02 | 06  | �µ� JD6 | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 6.00000 | 6 | 63.00000 | 0.00000| 3   | 26.00000| 1.00000| 6.00000 | 0.00000|    | 0  | 0.00000| 0.00000| 1.0  | 6.00000 |      |       | BT50ER16-100|
+DATA   | JD5  | 03| 41| 02 | 06  | �µ� JD5 | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 5.00000 | 6 | 56.00000 | 0.00000| 3   | 23.00000| 1.00000| 5.00000 | 0.00000|    | 0  | 0.00000| 0.00000| 1.0  | 5.00000 |      |       | BT50ER16-100|
+DATA   | JD4  | 03| 41| 02 | 06  | �µ� JD4 | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 4.00000 | 6 | 45.00000 | 0.00000| 3   | 19.00000| 1.00000| 4.00000 | 0.00000|    | 0  | 0.00000| 0.00000| 1.0  | 4.00000 |      |       | BT50ER16-100|
 #END_DATA
 
 #CLASS T_SLOT_MILL_NON_INDEXABLE
 FORMAT   LIBRF       T   ST  UGT  UGST  DESCR               MATREF      MATDES          TLNUM  ADJREG  CUTCOMREG  HLD  HLDDES  DIA       FN  HEI        ZOFF     DROT  FLEN     SDIA      LCOR     UCOR     CTH  HOFF     ZMOUNT   RIGID  TSDIA     TSLEN  TSTLEN  RAMPANGLE  HELICALDIA  MINRAMPLEN  MAXCUTWIDTH  HLDREF         TPREF
 #--------+-----------+---+---+----+-----+-------------------+-----------+---------------+------+-------+----------+----+-------+---------+---+----------+--------+-----+--------+---------+--------+--------+----+--------+--------+------+---------+------+-------+----------+-----------+-----------+------------+--------------+------
-DATA   | TD63R4L111| 02| 21| 08 | 00  | T型铣刀 TD63R4L111| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 63.00000| 8 | 111.00000| 0.00000| 3   | 8.00000| 25.00000| 4.00000| 4.00000| 0  | 0.00000| 0.00000| 1.0  | 25.00000|      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ASC32-105|
+DATA   | TD63R4L111| 02| 21| 08 | 00  | T��ϳ�� TD63R4L111| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 63.00000| 8 | 111.00000| 0.00000| 3   | 8.00000| 25.00000| 4.00000| 4.00000| 0  | 0.00000| 0.00000| 1.0  | 25.00000|      |       | 15.00000 | 90.00000%T| 70.00000%T| 50.00000%T | BT50ASC32-105|
 #END_DATA
 
 #CLASS TWIST_DRILL
 FORMAT   LIBRF   T   ST  UGT  UGST  DESCR          MATREF      MATDES          TLNUM  ADJREG  CUTCOMREG  HLD  HLDDES  DIA       FN  HEI        ZOFF     DROT  FLEN       PNTA       PNTL     COR1     CTH  HOFF     ZMOUNT   RIGID  TSDIA     TSLEN  TSTLEN  HLDREF        TPREF
 #--------+-------+---+---+----+-----+--------------+-----------+---------------+------+-------+----------+----+-------+---------+---+----------+--------+-----+----------+----------+--------+--------+----+--------+--------+------+---------+------+-------+-------------+------
-DATA   | ZD24.5| 03| 01| 02 | 00  | 麻花钻 ZD24.5| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 24.50000| 2 | 200.00000| 0.00000| 3   | 160.00000| 118.00000| 7.36054| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 24.50000|      |       | BT50ER40-100|
-DATA   | ZD23.5| 03| 01| 02 | 00  | 麻花钻 ZD23.5| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 23.50000| 2 | 194.00000| 0.00000| 3   | 155.00000| 118.00000| 7.06011| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 23.50000|      |       | BT50ER40-100|
-DATA   | ZD21.5| 03| 01| 02 | 00  | 麻花钻 ZD21.5| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 21.50000| 2 | 188.00000| 0.00000| 3   | 150.00000| 118.00000| 6.45925| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 21.50000|      |       | BT50ER40-100|
-DATA   | ZD19.7| 03| 01| 02 | 00  | 麻花钻 ZD19.7| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 19.70000| 2 | 175.00000| 0.00000| 3   | 140.00000| 118.00000| 5.91848| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 19.70000|      |       | BT50ER32-100|
-DATA   | ZD18.1| 03| 01| 02 | 00  | 麻花钻 ZD18.1| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 18.10000| 2 | 168.00000| 0.00000| 3   | 135.00000| 118.00000| 5.43779| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 18.10000|      |       | BT50ER32-100|
-DATA   | ZD17.7| 03| 01| 02 | 00  | 麻花钻 ZD17.7| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 17.70000| 2 | 161.00000| 0.00000| 3   | 130.00000| 118.00000| 5.31762| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 17.70000|      |       | BT50ER32-100|
-DATA   | ZD17.1| 03| 01| 02 | 00  | 麻花钻 ZD17.1| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 17.10000| 2 | 161.00000| 0.00000| 3   | 130.00000| 118.00000| 5.13736| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 17.10000|      |       | BT50ER32-100|
-DATA   | ZD15.7| 03| 01| 02 | 00  | 麻花钻 ZD15.7| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 15.70000| 2 | 148.00000| 0.00000| 3   | 120.00000| 118.00000| 4.71676| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 15.70000|      |       | BT50ER25-100|
-DATA   | ZD14.2| 03| 01| 02 | 00  | 麻花钻 ZD14.2| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 14.20000| 2 | 139.00000| 0.00000| 3   | 114.00000| 118.00000| 4.26611| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 14.20000|      |       | BT50ER25-100|
-DATA   | ZD13.1| 03| 01| 02 | 00  | 麻花钻 ZD13.1| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 13.10000| 2 | 121.00000| 0.00000| 3   | 101.00000| 118.00000| 3.93564| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 13.10000|      |       | BT50ER25-100|
-DATA   | ZD12.1| 03| 01| 02 | 00  | 麻花钻 ZD12.1| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 12.10000| 2 | 121.00000| 0.00000| 3   | 101.00000| 118.00000| 3.63521| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 12.10000|      |       | BT50ER20-100|
-DATA   | ZD11.5| 03| 01| 02 | 00  | 麻花钻 ZD11.5| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 11.50000| 2 | 112.00000| 0.00000| 3   | 94.00000 | 118.00000| 3.45495| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 11.50000|      |       | BT50ER20-100|
-DATA   | ZD11.1| 03| 01| 02 | 00  | 麻花钻 ZD11.1| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 11.10000| 2 | 112.00000| 0.00000| 3   | 94.00000 | 118.00000| 3.33478| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 11.10000|      |       | BT50ER20-100|
-DATA   | ZD10.5| 03| 01| 02 | 00  | 麻花钻 ZD10.5| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 10.50000| 2 | 103.00000| 0.00000| 3   | 87.00000 | 118.00000| 3.15452| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 10.50000|      |       | BT50ER20-100|
-DATA   | ZD9.5 | 03| 01| 02 | 00  | 麻花钻 ZD9.5 | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 9.50000 | 2 | 95.00000 | 0.00000| 3   | 81.00000 | 118.00000| 2.85409| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 9.50000 |      |       | BT50ER16-100|
-DATA   | ZD9.1 | 03| 01| 02 | 00  | 麻花钻 ZD9.1 | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 9.10000 | 2 | 95.00000 | 0.00000| 3   | 81.00000 | 118.00000| 2.73392| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 9.10000 |      |       | BT50ER16-100|
-DATA   | ZD8.7 | 03| 01| 02 | 00  | 麻花钻 ZD8.7 | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 8.70000 | 2 | 95.00000 | 0.00000| 3   | 81.00000 | 118.00000| 2.61374| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 8.70000 |      |       | BT50ER16-100|
-DATA   | ZD7.5 | 03| 01| 02 | 00  | 麻花钻 ZD7.5 | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 7.50000 | 2 | 79.00000 | 0.00000| 3   | 69.00000 | 118.00000| 2.25323| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 7.50000 |      |       | BT50ER16-100|
-DATA   | ZD7.1 | 03| 01| 02 | 00  | 麻花钻 ZD7.1 | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 7.10000 | 2 | 79.00000 | 0.00000| 3   | 69.00000 | 118.00000| 2.13306| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 7.10000 |      |       | BT50ER16-100|
-DATA   | ZD6.8 | 03| 01| 02 | 00  | 麻花钻 ZD6.8 | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 6.80000 | 2 | 79.00000 | 0.00000| 3   | 69.00000 | 118.00000| 2.04293| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 6.80000 |      |       | BT50ER16-100|
-DATA   | ZD5.6 | 03| 01| 02 | 00  | 麻花钻 ZD5.6 | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 5.60000 | 2 | 63.00000 | 0.00000| 3   | 57.00000 | 118.00000| 1.68241| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 5.60000 |      |       | BT50ER16-100|
-DATA   | ZD5.2 | 03| 01| 02 | 00  | 麻花钻 ZD5.2 | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 5.20000 | 2 | 56.00000 | 0.00000| 3   | 52.00000 | 118.00000| 1.56224| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 5.20000 |      |       | BT50ER16-100|
-DATA   | ZD4.6 | 03| 01| 02 | 00  | 麻花钻 ZD4.6 | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 4.60000 | 2 | 50.00000 | 0.00000| 3   | 47.00000 | 118.00000| 1.38198| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 4.60000 |      |       | BT50ER16-100|
-DATA   | ZD4.3 | 03| 01| 02 | 00  | 麻花钻 ZD4.3 | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 4.30000 | 2 | 50.00000 | 0.00000| 3   | 47.00000 | 118.00000| 1.29185| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 4.30000 |      |       | BT50ER16-100|
-DATA   | ZD3.7 | 03| 01| 02 | 00  | 麻花钻 ZD3.7 | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 3.70000 | 2 | 40.00000 | 0.00000| 3   | 39.00000 | 118.00000| 1.11159| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 3.70000 |      |       | BT50ER16-100|
-DATA   | ZD3.3 | 03| 01| 02 | 00  | 麻花钻 ZD3.3 | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 3.30000 | 2 | 35.00000 | 0.00000| 3   | 35.00000 | 118.00000| 0.99142| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 3.30000 |      |       | BT50ER16-100|
+DATA   | ZD24.5| 03| 01| 02 | 00  | �黨�� ZD24.5| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 24.50000| 2 | 200.00000| 0.00000| 3   | 160.00000| 118.00000| 7.36054| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 24.50000|      |       | BT50ER40-100|
+DATA   | ZD23.5| 03| 01| 02 | 00  | �黨�� ZD23.5| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 23.50000| 2 | 194.00000| 0.00000| 3   | 155.00000| 118.00000| 7.06011| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 23.50000|      |       | BT50ER40-100|
+DATA   | ZD21.5| 03| 01| 02 | 00  | �黨�� ZD21.5| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 21.50000| 2 | 188.00000| 0.00000| 3   | 150.00000| 118.00000| 6.45925| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 21.50000|      |       | BT50ER40-100|
+DATA   | ZD19.7| 03| 01| 02 | 00  | �黨�� ZD19.7| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 19.70000| 2 | 175.00000| 0.00000| 3   | 140.00000| 118.00000| 5.91848| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 19.70000|      |       | BT50ER32-100|
+DATA   | ZD18.1| 03| 01| 02 | 00  | �黨�� ZD18.1| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 18.10000| 2 | 168.00000| 0.00000| 3   | 135.00000| 118.00000| 5.43779| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 18.10000|      |       | BT50ER32-100|
+DATA   | ZD17.7| 03| 01| 02 | 00  | �黨�� ZD17.7| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 17.70000| 2 | 161.00000| 0.00000| 3   | 130.00000| 118.00000| 5.31762| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 17.70000|      |       | BT50ER32-100|
+DATA   | ZD17.1| 03| 01| 02 | 00  | �黨�� ZD17.1| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 17.10000| 2 | 161.00000| 0.00000| 3   | 130.00000| 118.00000| 5.13736| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 17.10000|      |       | BT50ER32-100|
+DATA   | ZD15.7| 03| 01| 02 | 00  | �黨�� ZD15.7| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 15.70000| 2 | 148.00000| 0.00000| 3   | 120.00000| 118.00000| 4.71676| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 15.70000|      |       | BT50ER25-100|
+DATA   | ZD14.2| 03| 01| 02 | 00  | �黨�� ZD14.2| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 14.20000| 2 | 139.00000| 0.00000| 3   | 114.00000| 118.00000| 4.26611| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 14.20000|      |       | BT50ER25-100|
+DATA   | ZD13.1| 03| 01| 02 | 00  | �黨�� ZD13.1| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 13.10000| 2 | 121.00000| 0.00000| 3   | 101.00000| 118.00000| 3.93564| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 13.10000|      |       | BT50ER25-100|
+DATA   | ZD12.1| 03| 01| 02 | 00  | �黨�� ZD12.1| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 12.10000| 2 | 121.00000| 0.00000| 3   | 101.00000| 118.00000| 3.63521| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 12.10000|      |       | BT50ER20-100|
+DATA   | ZD11.5| 03| 01| 02 | 00  | �黨�� ZD11.5| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 11.50000| 2 | 112.00000| 0.00000| 3   | 94.00000 | 118.00000| 3.45495| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 11.50000|      |       | BT50ER20-100|
+DATA   | ZD11.1| 03| 01| 02 | 00  | �黨�� ZD11.1| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 11.10000| 2 | 112.00000| 0.00000| 3   | 94.00000 | 118.00000| 3.33478| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 11.10000|      |       | BT50ER20-100|
+DATA   | ZD10.5| 03| 01| 02 | 00  | �黨�� ZD10.5| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 10.50000| 2 | 103.00000| 0.00000| 3   | 87.00000 | 118.00000| 3.15452| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 10.50000|      |       | BT50ER20-100|
+DATA   | ZD9.5 | 03| 01| 02 | 00  | �黨�� ZD9.5 | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 9.50000 | 2 | 95.00000 | 0.00000| 3   | 81.00000 | 118.00000| 2.85409| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 9.50000 |      |       | BT50ER16-100|
+DATA   | ZD9.1 | 03| 01| 02 | 00  | �黨�� ZD9.1 | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 9.10000 | 2 | 95.00000 | 0.00000| 3   | 81.00000 | 118.00000| 2.73392| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 9.10000 |      |       | BT50ER16-100|
+DATA   | ZD8.7 | 03| 01| 02 | 00  | �黨�� ZD8.7 | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 8.70000 | 2 | 95.00000 | 0.00000| 3   | 81.00000 | 118.00000| 2.61374| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 8.70000 |      |       | BT50ER16-100|
+DATA   | ZD7.5 | 03| 01| 02 | 00  | �黨�� ZD7.5 | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 7.50000 | 2 | 79.00000 | 0.00000| 3   | 69.00000 | 118.00000| 2.25323| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 7.50000 |      |       | BT50ER16-100|
+DATA   | ZD7.1 | 03| 01| 02 | 00  | �黨�� ZD7.1 | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 7.10000 | 2 | 79.00000 | 0.00000| 3   | 69.00000 | 118.00000| 2.13306| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 7.10000 |      |       | BT50ER16-100|
+DATA   | ZD6.8 | 03| 01| 02 | 00  | �黨�� ZD6.8 | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 6.80000 | 2 | 79.00000 | 0.00000| 3   | 69.00000 | 118.00000| 2.04293| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 6.80000 |      |       | BT50ER16-100|
+DATA   | ZD5.6 | 03| 01| 02 | 00  | �黨�� ZD5.6 | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 5.60000 | 2 | 63.00000 | 0.00000| 3   | 57.00000 | 118.00000| 1.68241| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 5.60000 |      |       | BT50ER16-100|
+DATA   | ZD5.2 | 03| 01| 02 | 00  | �黨�� ZD5.2 | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 5.20000 | 2 | 56.00000 | 0.00000| 3   | 52.00000 | 118.00000| 1.56224| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 5.20000 |      |       | BT50ER16-100|
+DATA   | ZD4.6 | 03| 01| 02 | 00  | �黨�� ZD4.6 | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 4.60000 | 2 | 50.00000 | 0.00000| 3   | 47.00000 | 118.00000| 1.38198| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 4.60000 |      |       | BT50ER16-100|
+DATA   | ZD4.3 | 03| 01| 02 | 00  | �黨�� ZD4.3 | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 4.30000 | 2 | 50.00000 | 0.00000| 3   | 47.00000 | 118.00000| 1.29185| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 4.30000 |      |       | BT50ER16-100|
+DATA   | ZD3.7 | 03| 01| 02 | 00  | �黨�� ZD3.7 | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 3.70000 | 2 | 40.00000 | 0.00000| 3   | 39.00000 | 118.00000| 1.11159| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 3.70000 |      |       | BT50ER16-100|
+DATA   | ZD3.3 | 03| 01| 02 | 00  | �黨�� ZD3.3 | TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 3.30000 | 2 | 35.00000 | 0.00000| 3   | 35.00000 | 118.00000| 0.99142| 0.00000| 0  | 0.00000| 0.00000| 1.0  | 3.30000 |      |       | BT50ER16-100|
 #END_DATA
 
 #CLASS SPOT_DRILL
 FORMAT   LIBRF  T   ST  UGT  UGST  DESCR         MATREF      MATDES          TLNUM  ADJREG  CUTCOMREG  HLD  HLDDES  DIA       FN  HEI       ZOFF     DROT  FLEN      PNTA      PNTL     CTH  HOFF     ZMOUNT   RIGID  TSDIA     TSLEN  TSTLEN  HLDREF        TPREF
 #--------+------+---+---+----+-----+-------------+-----------+---------------+------+-------+----------+----+-------+---------+---+---------+--------+-----+---------+---------+--------+----+--------+--------+------+---------+------+-------+-------------+------
-DATA   | ZXD10| 03| 21| 02 | 04  | 定心钻 ZXD10| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 10.00000| 2 | 59.00000| 0.00000| 3   | 25.00000| 90.00000| 5.00000| 0  | 0.00000| 0.00000| 1.0  | 10.00000|      |       | BT50ER16-100|
+DATA   | ZXD10| 03| 21| 02 | 04  | ������ ZXD10| TMC0_00007| Coated(Ti,Al)N| 0    | 1     | 0        |    |       | 10.00000| 2 | 59.00000| 0.00000| 3   | 25.00000| 90.00000| 5.00000| 0  | 0.00000| 0.00000| 1.0  | 10.00000|      |       | BT50ER16-100|
 #END_DATA
 
 # ==================================================
-# >>>>>> 系统原厂刀具（后置显示区）<<<<<<
+# >>>>>> ϵͳԭ�����ߣ�������ʾ����<<<<<<
 # ==================================================
 
 #CLASS END_MILL_NON_INDEXABLE
