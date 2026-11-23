@@ -1,0 +1,12 @@
+[project]
+name = "nx-fbm"
+version = "0.1.0"
+description = "NX 刀库 / 加工特征规则生成工具（HTML 解析 + NX12 规则库生成）"
+requires-python = ">=3.13,<3.14"
+dependencies = [
+    "beautifulsoup4>=4.12.0",
+    "requests>=2.32.0",
+]
+
+[tool.uv]
+package = false
